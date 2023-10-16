@@ -15,13 +15,13 @@ class PostDetailResource extends JsonResource
     public function toArray(Request $request): array
     {
         return
-        [
-            'id' =>     $this->id,
-            'title' =>     $this->title,
-            'news' =>     $this->news,
-            'created_at' => date_format($this->created_at, "Y/m/d H:i:s"),
-            'author' =>     $this->author,
-            'writer' =>     $this->whenLoaded(' '),
-        ];
+            [
+                'id' =>     $this->id,
+                'title' =>     $this->title,
+                'news' =>     $this->news,
+                'created_at' => date_format($this->created_at, "Y/m/d H:i:s"),
+                'author' =>     $this->author,
+                'writer' =>     $this->whenLoaded('writer'),
+            ];
     }
 }
