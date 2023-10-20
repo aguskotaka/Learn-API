@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Resources\CommentResource;
+use App\Models\Comment;
+use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
+
+class CommentController extends Controller
+{
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'post_id' => 'required|exists:posts,id',
+            'comments_content' => 'required',
+        ]);
+
+        $request['user_id'] = auth()->user()->id;
+
+        $comment = Comment::create($request->all());
+
+        return new CommentResource($comment->loadMissing(['commentator:id,username']));
+    }
+}
